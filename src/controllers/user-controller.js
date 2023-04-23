@@ -30,3 +30,18 @@ exports.updateUser = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.deleteUser = async (req, res, next) => {
+  try {
+    if (req.user.role !== "admin") {
+      return res.status(403).json({ message: "Unauthorized" });
+    }
+
+    await User.destroy({
+      where: { id: req.params.userId }
+    });
+    res.status(204).json();
+  } catch (err) {
+    next(err);
+  }
+};
