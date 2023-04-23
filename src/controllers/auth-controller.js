@@ -56,18 +56,14 @@ exports.register = async (req, res, next) => {
 
     req.body.password = await bcrypt.hash(user.password, 10);
 
-    // await User.create({
-    //   firstName: req.body.firstName,
-    //   lastName: req.body.lastName,
-    //   telephoneNumber: req.body.telephoneNumber,
-    //   citizenId: req.body.citizenId,
-    //   username: req.body.username,
-    //   password: req.body.password
-    // });
     await User.create(user);
 
     res.status(201).json({ message: "User created successfully" });
   } catch (err) {
     next(err);
   }
+};
+
+exports.getMe = (req, res, next) => {
+  res.status(200).json({ user: req.user });
 };

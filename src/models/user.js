@@ -26,7 +26,7 @@ module.exports = (sequelize, Datatypes) => {
         }
       },
       citizenId: {
-        type: Datatypes.CHAR(13),
+        type: Datatypes.STRING,
         allowNull: false,
         unique: true,
         validate: {
@@ -71,7 +71,8 @@ module.exports = (sequelize, Datatypes) => {
         name: "userId",
         allowNull: false
       },
-      onDelete: "RESTRICT"
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE"
     });
   };
 
