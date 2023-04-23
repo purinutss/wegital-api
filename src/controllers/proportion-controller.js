@@ -6,6 +6,7 @@ exports.createProportion = async (req, res, next) => {
       height: req.body.height,
       weight: req.body.weight,
       waist: req.body.waist,
+      date: req.body.date,
       userId: req.user.id
     });
 
