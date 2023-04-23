@@ -22,17 +22,16 @@ module.exports = (sequelize, Datatypes) => {
         unique: true,
         validate: {
           isNumeric: true,
-          allowNull: false,
           is: /^0[0-9]{9}$/
         }
       },
       citizenId: {
-        type: Datatypes.STRING,
+        type: Datatypes.CHAR(13),
         allowNull: false,
+        unique: true,
         validate: {
-          isNumeric: true,
-          allowNull: false,
-          max: 13
+          is: /^[0-9]{13}$/,
+          notEmpty: true
         }
       },
       role: {

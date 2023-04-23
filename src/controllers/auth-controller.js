@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
 const { User } = require("../models");
 const createError = require("../utils/create-error");
@@ -34,6 +35,38 @@ exports.login = async (req, res, next) => {
     );
 
     res.status(200).json({ accessToken });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.register = async (req, res, next) => {
+  try {
+    if (req.user.role !== "admin") {
+      return res.status(403).json({ message: "Unauthorized" });
+    }
+
+    const user = req.body;
+    const existUsername = await User.findOne({
+      where: { username: user.username }
+    });
+    if (existUsername) {
+      createError("Username has already existed", 400);
+    }
+
+    req.body.password = await bcrypt.hash(user.password, 10);
+
+    // await User.create({
+    //   firstName: req.body.firstName,
+    //   lastName: req.body.lastName,
+    //   telephoneNumber: req.body.telephoneNumber,
+    //   citizenId: req.body.citizenId,
+    //   username: req.body.username,
+    //   password: req.body.password
+    // });
+    await User.create(user);
+
+    res.status(201).json({ message: "User created successfully" });
   } catch (err) {
     next(err);
   }
