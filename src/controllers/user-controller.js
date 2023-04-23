@@ -1,4 +1,4 @@
-const { User } = require("../models");
+const { User, Proportion } = require("../models");
 const bcrypt = require("bcryptjs");
 
 exports.updateUser = async (req, res, next) => {
@@ -41,6 +41,28 @@ exports.deleteUser = async (req, res, next) => {
       where: { id: req.params.userId }
     });
     res.status(204).json();
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.getAllUsers = async (req, res, next) => {
+  try {
+    const users = await User.findAll();
+    res.status(200).json({ users });
+  } catch (err) {
+    next(err);
+  }
+};
+exports.getUserById = async (req, res, next) => {
+  try {
+    const user = await User.findOne({
+      where: {
+        id: req.params.userId
+      },
+      include: [{ model: Proportion }]
+    });
+    res.status(200).json({ user });
   } catch (err) {
     next(err);
   }
