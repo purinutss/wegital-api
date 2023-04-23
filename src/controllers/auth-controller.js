@@ -12,7 +12,7 @@ exports.login = async (req, res, next) => {
       createError("Username or Password is incorrect", 404);
     }
 
-    const isMatchPassword = req.body.password === user.password;
+    const isMatchPassword = await bcrypt.compare(req.body.password, user.password);
 
     if (!isMatchPassword) {
       createError("Username or Password is incorrect", 404);
