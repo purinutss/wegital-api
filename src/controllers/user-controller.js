@@ -60,7 +60,7 @@ exports.getUserById = async (req, res, next) => {
       where: {
         id: req.params.userId
       },
-      include: [{ model: Proportion }]
+      include: [{ model: Proportion, order: [["createdAt", "DESC"]] }]
     });
     res.status(200).json({ user });
   } catch (err) {
