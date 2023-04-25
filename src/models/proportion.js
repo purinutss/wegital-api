@@ -3,25 +3,25 @@ module.exports = (sequelize, DataTypes) => {
     "Proportion",
     {
       height: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         validate: {
           isNumeric: true
         }
       },
       weight: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         validate: {
           isNumeric: true
         }
       },
       waist: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         validate: {
           isNumeric: true
         }
       },
       date: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         defaultValue: sequelize.NOW
       }
     },
