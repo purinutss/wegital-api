@@ -42,9 +42,9 @@ exports.login = async (req, res, next) => {
 
 exports.register = async (req, res, next) => {
   try {
-    if (req.user.role !== "admin") {
-      return res.status(403).json({ message: "Unauthorized" });
-    }
+    // if (req.user.role !== "admin") {
+    //   return res.status(403).json({ message: "Unauthorized" });
+    // }
 
     const user = req.body;
     const existUsername = await User.findOne({
